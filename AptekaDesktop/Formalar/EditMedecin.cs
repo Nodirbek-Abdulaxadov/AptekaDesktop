@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AptekaDesktop.Menyular
+namespace AptekaDesktop.Formalar
 {
-    public partial class Adminlar : UserControl
+    public partial class EditMedecin : Form
     {
-        public Adminlar()
+        public EditMedecin()
         {
             InitializeComponent();
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
