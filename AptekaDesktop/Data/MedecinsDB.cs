@@ -28,6 +28,16 @@ namespace AptekaDesktop.Data
             return table;
         }
 
+        public DataTable GetMedecins(string name)
+        {
+            string sql = SqlQueries.searchQuery + $"'%{name}%';";
+            sqlDataAdapter = new SqlDataAdapter(sql, sqlConnection);
+            table = new DataTable();
+            sqlDataAdapter.Fill(table);
+
+            return table;
+        }
+
         public void AddMedecin(MedecinModel medecin)
         {
             string sql = SqlQueries.addQuery + $"('{medecin.Name}', '{medecin.Price}', '{medecin.Description}', '{medecin.ExpDate}');";
@@ -38,6 +48,16 @@ namespace AptekaDesktop.Data
         public void DeleteMedecin(string id)
         {
             string sql = SqlQueries.deleteQuery + id;
+            sqlCommand = new SqlCommand(sql, sqlConnection);
+            sqlCommand.ExecuteNonQuery();
+        }
+
+        public void EditMedecin(MedecinModel medecin)
+        {
+            string sql = SqlQueries.editQuery + $" Name = '{medecin.Name}'," +
+                $" Price = '{medecin.Price}', Description = '{medecin.Description}', ExpDate = '{medecin.ExpDate}' " +
+                $"WHERE Id = {medecin.Id};";
+
             sqlCommand = new SqlCommand(sql, sqlConnection);
             sqlCommand.ExecuteNonQuery();
         }

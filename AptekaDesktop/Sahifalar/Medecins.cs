@@ -18,12 +18,28 @@ namespace AptekaDesktop.Sahifalar
         {
             AddMedecin addMedecin = new AddMedecin();
             addMedecin.ShowDialog();
+            Refresh();
         }
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {
-            EditMedecin editMedecin = new EditMedecin();
-            editMedecin.ShowDialog();
+            #region 
+            //EditMedecin editMedecin = new EditMedecin();
+            //editMedecin.Id = guna2DataGridView1.SelectedRows[0].Cells[0].Value.ToString();
+            //editMedecin.Name = guna2DataGridView1.SelectedRows[0].Cells[1].Value.ToString();
+            //editMedecin.Price = guna2DataGridView1.SelectedRows[0].Cells[2].Value.ToString();
+            //editMedecin.Description = guna2DataGridView1.SelectedRows[0].Cells[3].Value.ToString();
+            //editMedecin.ExpDate = guna2DataGridView1.SelectedRows[0].Cells[4].Value.ToString();
+            //editMedecin.ShowDialog();
+            #endregion
+
+            EditMedecin edit = new EditMedecin( guna2DataGridView1.SelectedRows[0].Cells[0].Value.ToString(),
+                                                guna2DataGridView1.SelectedRows[0].Cells[1].Value.ToString(),
+                                                guna2DataGridView1.SelectedRows[0].Cells[2].Value.ToString(),
+                                                guna2DataGridView1.SelectedRows[0].Cells[3].Value.ToString(),
+                                                guna2DataGridView1.SelectedRows[0].Cells[4].Value.ToString() );
+            edit.ShowDialog();
+            Refresh();
         }
 
         private void Medecins_Load(object sender, EventArgs e)
@@ -66,6 +82,19 @@ namespace AptekaDesktop.Sahifalar
                 {
                     MessageBox.Show(ex.Message);
                 }
+            }
+        }
+
+        private void guna2TextBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (guna2TextBox1.Text != "")
+            {
+                medecins = new MedecinsDB();
+                guna2DataGridView1.DataSource = medecins.GetMedecins(guna2TextBox1.Text);
+            }
+            else
+            {
+                Refresh();
             }
         }
     }
