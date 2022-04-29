@@ -61,5 +61,13 @@ namespace AptekaDesktop.Data
             sqlCommand = new SqlCommand(sql, sqlConnection);
             sqlCommand.ExecuteNonQuery();
         }
+
+        public bool IsExist(string email, string password)
+        {
+            string sql = $"SELECT COUNT(*) FROM Users WHERE Email = '{email}' AND Password = '{password}';";
+            sqlCommand = new SqlCommand(sql, sqlConnection);
+            int count = (int)sqlCommand.ExecuteScalar();
+            return count > 0;
+        }
     }
 }

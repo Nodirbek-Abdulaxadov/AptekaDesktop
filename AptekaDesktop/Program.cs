@@ -1,5 +1,7 @@
-﻿using System;
+﻿using AptekaDesktop.Formalar;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,7 +18,23 @@ namespace AptekaDesktop
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            FileInfo file = new FileInfo("login.txt");
+
+            if (file.Exists)
+            {
+                StreamReader reader = new StreamReader("login.txt");
+                string text = reader.ReadToEnd();
+                if (text != "")
+                {
+                    reader.Close();
+                    Application.Run(new Form1());
+                }
+            }
+            else
+            {
+                Application.Run(new Login());
+            }
         }
     }
 }
